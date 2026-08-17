@@ -1,4 +1,4 @@
-# 75c. EAA auto-fix PR bot
+EAA auto-fix PR bot
 
 Scan for a11y violations -> AI fix diff in a PR -> human approves -> re-scan gates merge.
 
