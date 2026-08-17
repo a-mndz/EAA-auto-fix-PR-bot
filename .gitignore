@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.local
+*.log
+smoke.out
+smoke.err
+test-results/
+playwright-report/
+coverage/
+.DS_Store
+Thumbs.db

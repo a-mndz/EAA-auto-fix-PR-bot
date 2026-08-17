@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: eaa
+      POSTGRES_PASSWORD: ***
+      POSTGRES_DB: eaa_autofix
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6379:6379'

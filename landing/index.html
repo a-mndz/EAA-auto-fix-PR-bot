@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EAA Fix — accessibility fixes as pull requests, not legal risk</title>
+    <meta
+      name="description"
+      content="A GitHub App that scans your site for accessibility violations, opens a fix PR scoped to axe rule IDs, and lets a human approve. Built for the EU Accessibility Act."
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="#">
+          <span class="brand-mark" aria-hidden="true">◇</span>
+          <span class="brand-name">EAA&nbsp;Fix</span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="#demo">Live demo</a>
+          <a href="#how">How it works</a>
+          <a href="#pricing">Pricing</a>
+          <a class="nav-cta" href="#cta">Install on GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="wrap hero-inner">
+          <p class="eyebrow">For the EU Accessibility Act (EAA / BFSG)</p>
+          <h1 class="hero-title">
+            Turn accessibility compliance into a pull request — not a legal risk.
+          </h1>
+          <p class="hero-sub">
+            EAA Fix scans your site with axe-core, opens a fix PR scoped to the exact
+            violations it finds, and waits for a human to approve. No overlays. No
+            auto-merge. Just source-code fixes in your review flow.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#cta">Install on GitHub</a>
+            <a class="btn btn-ghost" href="#demo">See the live scan ↓</a>
+          </div>
+          <ul class="trust-strip" aria-label="Trust signals">
+            <li><strong>0</strong> auto-merges — structurally impossible</li>
+            <li><strong>WCAG 2.2 AA</strong> &amp; EN 301 549 mapped</li>
+            <li><strong>100%</strong> source-code fixes, no widgets</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="demo" class="demo">
+        <div class="wrap">
+          <p class="eyebrow">Live demo</p>
+          <h2 class="section-title">Scan any page. Or watch it catch ours first.</h2>
+          <p class="section-lead">
+            Two ways to see it work: run the axe-core engine in your browser against a
+            deliberately broken sample, or point it at <strong>your own site URL</strong> —
+            our production scanner loads it in a headless browser and returns exactly the
+            violations a fix PR would target.
+          </p>
+
+          <div class="demo-modes" role="group" aria-label="Demo mode">
+            <button id="mode-sample" class="mode-btn active" type="button" aria-pressed="true">
+              Try the broken sample (runs in your browser)
+            </button>
+            <button id="mode-url" class="mode-btn" type="button" aria-pressed="false">
+              Scan your own URL
+            </button>
+          </div>
+
+          <div class="demo-grid">
+            <figure class="demo-frame-wrap">
+              <figcaption class="demo-frame-label" id="demo-frame-label">
+                <span class="dot dot-bad" aria-hidden="true"></span> Sample page
+                (intentionally inaccessible)
+              </figcaption>
+              <iframe
+                id="demo-frame"
+                class="demo-frame"
+                title="Live demo: the page currently being scanned"
+              ></iframe>
+            </figure>
+
+            <div class="demo-panel" aria-live="polite">
+              <div class="demo-panel-head">
+                <h3>Scan results</h3>
+                <span id="scan-btn-wrap">
+                  <button id="scan-btn" class="btn btn-primary btn-sm" type="button">
+                    Run accessibility scan
+                  </button>
+                </span>
+              </div>
+
+              <form id="url-form" class="url-form" hidden>
+                <label class="url-label" for="url-input">Your site URL</label>
+                <input
+                  id="url-input"
+                  class="url-input"
+                  type="text"
+                  inputmode="url"
+                  autocomplete="url"
+                  placeholder="https://your-site.com"
+                  spellcheck="false"
+                />
+                <button id="url-scan-btn" class="btn btn-primary btn-sm" type="submit">
+                  Scan this URL
+                </button>
+                <p class="url-note">
+                  Headless scan runs on our servers; only the URL is sent. Max 30s, 10 scans/hour.
+                </p>
+              </form>
+
+              <div id="demo-status" class="demo-status">Ready. Press “Run accessibility scan”.</div>
+              <div id="demo-summary" class="demo-summary" hidden></div>
+              <ul id="demo-results" class="demo-results"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how" class="how">
+        <div class="wrap">
+          <p class="eyebrow">How it works</p>
+          <h2 class="section-title">Four steps. A human stays in the loop.</h2>
+          <ol class="steps">
+            <li>
+              <span class="step-num">1</span>
+              <h3>Scan</h3>
+              <p>Push to your default branch (or schedule it). A headless Playwright job runs axe-core across your configured URLs.</p>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <h3>Fix</h3>
+              <p>Deterministic fixes apply with zero LLM cost; semantic ones go to Claude and are scoped to detected rule IDs only.</p>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <h3>Review</h3>
+              <p>A PR opens with a before/after axe summary and a diff. The bot has <strong>no merge permission</strong> — you approve.</p>
+            </li>
+            <li>
+              <span class="step-num">4</span>
+              <h3>Gate</h3>
+              <p>On merge, a re-scan runs as a check. Any regression vs. baseline fails the check and is flagged for review.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="wedge">
+        <div class="wrap wedge-grid">
+          <div>
+            <p class="eyebrow">The wedge</p>
+            <h2 class="section-title">Monitoring reports. Agencies are slow. We ship the diff.</h2>
+          </div>
+          <ul class="compare">
+            <li>
+              <span class="compare-name">Monitoring tools</span>
+              <span class="compare-verdict bad">Report only</span>
+              <p>Siteimprove, Pope Tech — they tell you what’s wrong and leave the fix to you.</p>
+            </li>
+            <li>
+              <span class="compare-name">Agency remediation</span>
+              <span class="compare-verdict bad">$200–500 / page</span>
+              <p>Weeks of turnaround, recurring every release.</p>
+            </li>
+            <li class="compare-us">
+              <span class="compare-name">EAA Fix</span>
+              <span class="compare-verdict good">Fix PR, same day</span>
+              <p>Source-level, audit-trailed, priced well below agency remediation.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="pricing" class="pricing">
+        <div class="wrap">
+          <p class="eyebrow">Pricing</p>
+          <h2 class="section-title">Charge from day one. Priced below the $200–500/page anchor.</h2>
+          <div class="plans">
+            <article class="plan">
+              <h3>Free</h3>
+              <p class="plan-price">$0</p>
+              <p class="plan-for">1 repo · scan only</p>
+              <ul>
+                <li>axe-core scan + violation report</li>
+                <li>No fixes (the demo hook)</li>
+                <li>EAA audit log</li>
+              </ul>
+              <a class="btn btn-ghost btn-block" href="#cta">Start free</a>
+            </article>
+            <article class="plan plan-featured">
+              <h3>Team</h3>
+              <p class="plan-price">$39–79<span class="per">/mo</span></p>
+              <p class="plan-for">Repos + pages in quota</p>
+              <ul>
+                <li>AI fix PRs in your review flow</li>
+                <li>Per merged fix metered billing</li>
+                <li>Before/after re-scan gate</li>
+              </ul>
+              <a class="btn btn-primary btn-block" href="#cta">Install on GitHub</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="cta" class="cta">
+        <div class="wrap cta-inner">
+          <h2 class="section-title">Get your first fix PR this week.</h2>
+          <p class="section-lead">
+            Install the GitHub App, point it at a URL set, and review the first fix PR.
+            Germany teams under Abmahnung pressure — this is the fastest path to clean.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#">Install on GitHub</a>
+            <a class="btn btn-ghost" href="mailto:founders@eaafix.dev?subject=Pilot%20request">Request a pilot</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p class="footer-brand"><span class="brand-mark" aria-hidden="true">◇</span> EAA Fix</p>
+        <p class="footer-note">
+          Compliance anchors: EAA (EU) 2019/882 · BFSG (DE) · WCAG 2.2 AA · EN 301 549 v3.2.1.
+          The bot proposes fixes via pull request and is structurally unable to merge.
+        </p>
+      </div>
+    </footer>
+
+    <script src="assets/app.js"></script>
+  </body>
+</html>
